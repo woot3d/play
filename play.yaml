@@ -4,15 +4,15 @@
   gather_facts: no
   tasks:
   - name: Add epel-release repo
-    package:
+    yum:
       name: epel-release
       state: present
-
+      use_backend: yum3
   - name: Install nginx
-    package:
+    yum:
       name: nginx
       state: present
-
+      use_backend: yum3
   - name: Insert Index Page
     copy:
       src: index.html
