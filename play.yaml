@@ -4,12 +4,12 @@
   gather_facts: no
   tasks:
   - name: Add epel-release repo
-    yum:
+    package:
       name: epel-release
       state: present
 
   - name: Install nginx
-    yum:
+    package:
       name: nginx
       state: present
 
