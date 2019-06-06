@@ -1,0 +1,41 @@
+---
+- hosts: web
+  become: true
+  gather_facts: no
+  tasks:
+  - name: Add epel-release repo
+    yum:
+      name: epel-release
+      state: present
+
+  - name: Install nginx
+    yum:
+      name: nginx
+      state: present
+
+  - name: Insert Index Page
+    copy:
+      src: index.html
+      dest: /usr/share/nginx/html/index.html
+
+  - name: Start NGiNX
+    service:
+      name: nginx
+      state: started
+  - name: Check that you can connect (GET) to a page and it returns a status 200
+    uri:
+      url: http://localhost
+  - uri:
+      url: http://localhost
+      return_content: yes
+    register: webpage
+
+  - name: Fail if hello is not in the page content
+    fail:
+    when: "'Hello' not in webpage.content"
+#  - copy:
+#      src: 404.html
+#      dest: /usr/share/nginx/html/index.html
+#  - name: Fail if AWESOME is not in the page content
+#    fail:
+#    when: "'AWESOME' not in webpage.content"
