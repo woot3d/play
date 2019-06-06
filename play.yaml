@@ -7,12 +7,12 @@
     yum:
       name: epel-release
       state: present
-      use_backend: yum3
+      use_backend: yum4
   - name: Install nginx
     yum:
       name: nginx
       state: present
-      use_backend: yum3
+      use_backend: yum4
   - name: Insert Index Page
     copy:
       src: index.html
